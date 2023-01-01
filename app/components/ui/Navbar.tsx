@@ -21,7 +21,7 @@ export const Navbar: FC = () => {
           className="cursor-pointer"
           onClick={() => setIsDark(!isDark)}
         >
-          {false ? (
+          {isDark ? (
             <svg
               className="w-5 h-5"
               fill="currentColor"

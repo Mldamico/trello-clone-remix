@@ -3,7 +3,7 @@ import { useState } from "react";
 export function useSafeLocalStorage(key: string, initialValue?: string) {
   const [valueProxy, setValueProxy] = useState(() => {
     try {
-      const value = window.localStorage.getItem(key);
+      const value = localStorage.getItem(key);
 
       return value ? JSON.parse(value) : initialValue;
     } catch {
@@ -13,7 +13,7 @@ export function useSafeLocalStorage(key: string, initialValue?: string) {
 
   const setValue = (value: string) => {
     try {
-      window.localStorage.setItem(key, value);
+      localStorage.setItem(key, value);
       setValueProxy(value);
     } catch {
       setValueProxy(value);
