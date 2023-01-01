@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { UIProvider } from "./context/ui";
 import styles from "./styles/app.css";
 
 export const meta: MetaFunction = () => ({
@@ -27,7 +28,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <UIProvider>
+          <Outlet />
+        </UIProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

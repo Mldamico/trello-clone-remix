@@ -1,18 +1,20 @@
 import { Link } from "@remix-run/react";
 import React, { FC, useContext } from "react";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
+import { UIContext } from "~/context/ui";
 import { useDarkMode } from "~/hooks/useDarkMode";
 
 export const Navbar: FC = () => {
   const [isDark, setIsDark] = useDarkMode();
+  const { toggleSideMenu } = useContext(UIContext);
   return (
     <div className="sticky text-white bg-[#DD7373] dark:bg-[#4a148c]">
-      <div className="py-3 px-6 flex items-center">
-        <div>
-          <HiOutlineMenuAlt1 size={24} onClick={() => {}} />
+      <div className="flex items-center px-6 py-3">
+        <div className="cursor-pointer">
+          <HiOutlineMenuAlt1 size={24} onClick={toggleSideMenu} />
         </div>
         <Link to="/" className="flex-1">
-          <h1 className="text-xl md:text-2xl ml-3">Trello clone</h1>
+          <h1 className="ml-3 text-xl md:text-2xl">Trello clone</h1>
         </Link>
         <div
           id="theme-toggle"
