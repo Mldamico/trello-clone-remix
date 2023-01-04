@@ -14,7 +14,9 @@ export const AppLayout = () => {
       <Drawer open={sidemenuOpen} onClose={toggleSideMenu} direction="left">
         <Sidebar />
       </Drawer>
-      <Outlet />
+      <div className="px-2 py-2">
+        <Outlet />
+      </div>
     </div>
   );
 };

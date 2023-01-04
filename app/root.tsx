@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { EntryProvider } from "./context/entries";
 import { UIProvider } from "./context/ui";
 import styles from "./styles/app.css";
 
@@ -29,7 +30,9 @@ export default function App() {
       </head>
       <body>
         <UIProvider>
-          <Outlet />
+          <EntryProvider>
+            <Outlet />
+          </EntryProvider>
         </UIProvider>
         <ScrollRestoration />
         <Scripts />

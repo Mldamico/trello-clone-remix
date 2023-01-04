@@ -6,7 +6,7 @@ export interface Entry {
 }
 
 export enum Status {
-  PENDING = "Pending",
-  IN_PROGRESS = "In Progress",
-  FINISHED = "Finished",
+  PENDING = "PENDING",
+  IN_PROGRESS = "IN_PROGRESS",
+  FINISHED = "FINISHED",
 }

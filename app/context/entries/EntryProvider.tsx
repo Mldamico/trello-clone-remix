@@ -1,4 +1,5 @@
 import { FC, useEffect, useReducer } from "react";
+import { db } from "~/utils/db.server";
 import { Entry, Status } from "../../interfaces";
 import { EntriesContext, entriesReducer } from "./";
 
@@ -45,12 +46,20 @@ export const EntryProvider: FC<Props> = ({ children }) => {
 
   const refreshEntries = async () => {
     // const { data } = await entriesApi.get<Entry[]>("/entries");
-    // dispatch({ type: "Entries - Refresh Update", payload: data });
+    console.log("ENTRANDO");
+    // const entries = await db.entry.findMany();
+    // console.log(entries);
+    // dispatch({ type: "Entries - Refresh Update", payload: entries as any });
   };
 
-  useEffect(() => {
-    refreshEntries();
-  }, []);
+  const setEntries = async (entries: Entry[]) => {
+    console.log(entries);
+    dispatch({ type: "Entries - Refresh Update", payload: entries });
+  };
+
+  // useEffect(() => {
+  //   refreshEntries();
+  // }, []);
 
   return (
     <EntriesContext.Provider
@@ -59,6 +68,8 @@ export const EntryProvider: FC<Props> = ({ children }) => {
         addNewEntry,
         updateEntry,
         deleteEntry,
+        refreshEntries,
+        setEntries,
       }}
     >
       {children}

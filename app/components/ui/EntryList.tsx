@@ -3,7 +3,6 @@ import { EntryCard } from "./";
 import { Status } from "../../interfaces/entry";
 import { EntriesContext } from "../../context/entries";
 import { UIContext } from "../../context/ui";
-import styles from "./EntryList.module.css";
 interface Props {
   status: Status;
 }
@@ -20,6 +19,7 @@ export const EntryList: FC<Props> = ({ status }) => {
   const allowDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
   };
+
   const onDrop = (event: DragEvent<HTMLDivElement>) => {
     const id = event.dataTransfer.getData("text");
     const entry = entries.find((entry) => entry._id === id)!;
