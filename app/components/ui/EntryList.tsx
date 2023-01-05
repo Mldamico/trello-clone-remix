@@ -3,6 +3,7 @@ import { EntryCard } from "./";
 import { Status } from "../../interfaces/entry";
 import { EntriesContext } from "../../context/entries";
 import { UIContext } from "../../context/ui";
+import { useFetcher } from "@remix-run/react";
 interface Props {
   status: Status;
 }
@@ -10,7 +11,7 @@ interface Props {
 export const EntryList: FC<Props> = ({ status }) => {
   const { entries, updateEntry } = useContext(EntriesContext);
   const { isDragging, endDragging } = useContext(UIContext);
-
+  const fetcher = useFetcher();
   const entriesByStatus = useMemo(
     () => entries.filter((entry) => entry.status === status),
     [entries]
@@ -21,10 +22,15 @@ export const EntryList: FC<Props> = ({ status }) => {
   };
 
   const onDrop = (event: DragEvent<HTMLDivElement>) => {
+    console.log(event.dataTransfer.getData);
     const id = event.dataTransfer.getData("text");
-    const entry = entries.find((entry) => entry._id === id)!;
+
+    const entry = entries.find((entry) => entry.id === id)!;
+
     entry.status = status;
-    updateEntry(entry);
+    // updateEntry(entry);
+
+    fetcher.submit({ entry: JSON.stringify(entry) }, { method: "put" });
     endDragging();
   };
 
@@ -45,7 +51,7 @@ export const EntryList: FC<Props> = ({ status }) => {
           }`}
         >
           {entriesByStatus.map((entry) => (
-            <EntryCard key={entry._id} entry={entry} />
+            <EntryCard key={entry.id} entry={entry} />
           ))}
         </ul>
       </div>

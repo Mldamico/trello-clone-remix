@@ -12,7 +12,7 @@ export const EntryCard: FC<Props> = ({ entry }) => {
   const { startDragging, endDragging } = useContext(UIContext);
   const navigate = useNavigate();
   const onDragSart = (event: DragEvent) => {
-    event.dataTransfer.setData("text", entry._id);
+    event.dataTransfer.setData("text", entry.id);
     startDragging();
   };
 
@@ -20,7 +20,7 @@ export const EntryCard: FC<Props> = ({ entry }) => {
     endDragging();
   };
   const onClick = () => {
-    navigate(`/entries/${entry._id}`);
+    navigate(`/entries/${entry.id}`);
   };
   return (
     <div

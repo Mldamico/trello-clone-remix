@@ -2,7 +2,7 @@ import { ActionArgs, json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { EntryList } from "~/components/ui/EntryList";
 import { NewEntry } from "~/components/ui/NewEntry";
-import { Status } from "~/interfaces";
+import { Entry, Status } from "~/interfaces";
 import { db } from "~/utils/db.server";
 import { useContext, useEffect } from "react";
 import { EntriesContext } from "../../context/entries/EntryContext";
@@ -44,16 +44,33 @@ export const loader = async () => {
 
 export const action = async ({ request }: ActionArgs) => {
   const form = await request.formData();
-  const description = form.get("input");
-  if (typeof description !== "string") {
-    return json({ error: "could not submit" }, { status: 400 });
-  }
 
-  if (description.length < 3) {
-    return `That joke's name is too short`;
+  switch (request.method) {
+    case "POST":
+      console.log("entro en post");
+      const description = form.get("input");
+      if (typeof description !== "string") {
+        return json({ error: "could not submit" }, { status: 400 });
+      }
+
+      if (description.length < 3) {
+        return `That joke's name is too short`;
+      }
+      await db.entry.create({
+        data: { description, status: "PENDING" },
+      });
+      return redirect(`/`);
+    case "PUT":
+      const data = form.get("entry");
+
+      const newEntry: Entry = JSON.parse(data as string);
+
+      await db.entry.update({
+        where: { id: newEntry.id },
+        data: { status: newEntry.status },
+      });
+      return redirect(`/`);
+    default:
+      return redirect(`/`);
   }
-  const entry = await db.entry.create({
-    data: { description, status: "PENDING" },
-  });
-  return redirect(`/`);
 };
