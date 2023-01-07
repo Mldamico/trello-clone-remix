@@ -4,7 +4,12 @@ import { db } from "~/utils/db.server";
 import toast, { Toaster } from "react-hot-toast";
 import { TailSpin } from "react-loader-spinner";
 import { TextAreaInput } from "~/components/ui/TextAreaInput";
-import { useActionData, useFetcher, useLoaderData } from "@remix-run/react";
+import {
+  useActionData,
+  useFetcher,
+  useLoaderData,
+  useNavigate,
+} from "@remix-run/react";
 import { Entry, Status } from "~/interfaces";
 import { AiOutlineDelete, AiOutlineSave } from "react-icons/ai";
 const validStatus: Status[] = [
@@ -16,6 +21,7 @@ const EntryPage = () => {
   const data = useActionData();
   const entry = useLoaderData();
   const fetcher = useFetcher();
+  const navigate = useNavigate();
 
   const [inputValue, setInputValue] = useState(entry.description);
   const [status, setStatus] = useState<Status>(entry.status);
@@ -46,13 +52,7 @@ const EntryPage = () => {
   };
 
   const onDelete = () => {
-    //  setLoading(true);
-    //  deleteEntry(entry);
-    //  toast.error("Entry has been removed 🥲");
-    //  setTimeout(() => {
-    //    setLoading(false);
-    //    router.push("/");
-    //  }, 1000);
+    fetcher.submit({}, { method: "delete" });
   };
   return (
     <>
@@ -137,6 +137,11 @@ export const action = async ({ request, params }: ActionArgs) => {
         data: { status: newEntry.status, description: newEntry.description },
       });
       return redirect(`/entries/${id}`);
+
+    case "DELETE":
+      await db.entry.delete({
+        where: { id },
+      });
 
     default:
       return redirect("/");
