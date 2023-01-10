@@ -37,7 +37,9 @@ export const EntryCard: FC<Props> = ({ entry }) => {
         <div className="flex justify-end">
           <p className="flex items-center space-x-1 text-sm">
             <IoIosTimer />
-            <span>{entry.createdAt}</span>
+            <span>
+              {dateFunctions.getFormatDistanceToNow(new Date(entry.createdAt))}
+            </span>
           </p>
         </div>
       </div>
