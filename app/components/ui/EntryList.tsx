@@ -1,19 +1,18 @@
 import React, { DragEvent, FC, useContext, useMemo } from "react";
 import { EntryCard } from "./";
-import { Status } from "../../interfaces/entry";
-import { EntriesContext } from "../../context/entries";
+import { Entry, Status } from "../../interfaces/entry";
 import { UIContext } from "../../context/ui";
 import { useFetcher } from "@remix-run/react";
 interface Props {
   status: Status;
+  entries: Entry[] | undefined;
 }
 
-export const EntryList: FC<Props> = ({ status }) => {
-  const { entries, updateEntry } = useContext(EntriesContext);
+export const EntryList: FC<Props> = ({ status, entries }) => {
   const { isDragging, endDragging } = useContext(UIContext);
   const fetcher = useFetcher();
   const entriesByStatus = useMemo(
-    () => entries.filter((entry) => entry.status === status),
+    () => entries?.filter((entry) => entry.status === status),
     [entries]
   );
 
@@ -25,7 +24,7 @@ export const EntryList: FC<Props> = ({ status }) => {
     console.log(event.dataTransfer.getData);
     const id = event.dataTransfer.getData("text");
 
-    const entry = entries.find((entry) => entry.id === id)!;
+    const entry = entries?.find((entry) => entry.id === id)!;
 
     entry.status = status;
     // updateEntry(entry);
@@ -50,7 +49,7 @@ export const EntryList: FC<Props> = ({ status }) => {
             isDragging && "opacity-50 transition-all duration-75 "
           }`}
         >
-          {entriesByStatus.map((entry) => (
+          {entriesByStatus?.map((entry) => (
             <EntryCard key={entry.id} entry={entry} />
           ))}
         </ul>

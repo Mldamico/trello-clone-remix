@@ -25,7 +25,7 @@ export const TextAreaInput: FC<Props> = ({
         value={inputValue}
         onChange={onTextFieldChanges}
         id="text"
-        className={`peer  bg-lightPrimary text-black dark:text-white dark:bg-slate-800 outline w-full my-1 resize-none rounded p-2 placeholder-transparent focus:outline-black dark:focus:outline-lightPrimary ${
+        className={`peer  bg-[#EEEEEE] text-black dark:text-white dark:bg-slate-800 outline w-full my-1 resize-none rounded p-2 placeholder-transparent focus:outline-black dark:focus:outline-lightPrimary ${
           touched && inputValue.length === 0 && "outline-red-500 "
         }`}
         placeholder="New Entry"
@@ -34,7 +34,7 @@ export const TextAreaInput: FC<Props> = ({
       />
       <label
         htmlFor="text"
-        className="absolute bg-lightPrimary text-black dark:text-gray-200 dark:bg-slate-800 left-2 -top-1.5 text-sm
+        className="absolute bg-[#EEEEEE] text-black dark:text-gray-200 dark:bg-slate-800 left-2 -top-1.5 text-sm
           peer-placeholder-shown:top-4 px-2 peer-placeholder-shown:text-gray-500 transition-all duration-150 peer-focus:-top-1.5 peer-focus:text-xs peer-focus:text-black dark:peer-focus:text-gray-200 peer-placeholder-shown:px-2 "
       >
         New Entry

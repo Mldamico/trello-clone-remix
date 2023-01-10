@@ -2,7 +2,6 @@ import { Form, useFetcher } from "@remix-run/react";
 import React, { useContext, useRef, useState } from "react";
 import { AiOutlineSave } from "react-icons/ai";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { EntriesContext } from "../../context/entries/EntryContext";
 import { UIContext } from "../../context/ui";
 import { TextAreaInput } from "./TextAreaInput";
 
@@ -58,7 +57,7 @@ export const NewEntry = () => {
       ) : (
         <button
           onClick={() => setIsAddingEntry(true)}
-          className="flex items-center justify-center w-full py-1 space-x-2 border border-black rounded-md dark:border-white hover:bg-gray-400 dark:hover:bg-slate-700"
+          className="flex items-center justify-center w-full py-1 space-x-2 border border-black rounded-md dark:border-white hover:bg-lightAccent dark:hover:bg-slate-700"
         >
           <IoIosAddCircleOutline />
           <span> Add New Entry</span>

@@ -4,11 +4,10 @@ import { EntryList } from "~/components/ui/EntryList";
 import { NewEntry } from "~/components/ui/NewEntry";
 import { Entry, Status } from "~/interfaces";
 import { db } from "~/utils/db.server";
-import { useContext, useEffect } from "react";
-import { EntriesContext } from "../../context/entries/EntryContext";
+import { useEffect, useState } from "react";
 
 export default function Index() {
-  const { setEntries } = useContext(EntriesContext);
+  const [entries, setEntries] = useState<Entry[]>();
   const data = useLoaderData();
 
   useEffect(() => {
@@ -16,21 +15,21 @@ export default function Index() {
   }, [data]);
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2">
-      <div className="bg-lightPrimary dark:bg-slate-800 dark:text-white p- h-[calc(100vh_-_100px)] rounded-2xl">
+      <div className="bg-lightSecondary dark:bg-slate-800 dark:text-white p-2 h-[calc(100vh_-_100px)] rounded-2xl">
         <h2>To Do</h2>
 
         <NewEntry />
-        <EntryList status={Status.PENDING} />
+        <EntryList status={Status.PENDING} entries={entries} />
       </div>
-      <div className="bg-lightPrimary dark:bg-slate-800 dark:text-white p-2 h-[calc(100vh_-_100px)] rounded-2xl">
+      <div className="bg-lightSecondary dark:bg-slate-800 dark:text-white p-2 h-[calc(100vh_-_100px)] rounded-2xl">
         <h2>In Progress</h2>
 
-        <EntryList status={Status.IN_PROGRESS} />
+        <EntryList status={Status.IN_PROGRESS} entries={entries} />
       </div>
-      <div className="bg-lightPrimary dark:bg-slate-800 dark:text-white p-2 h-[calc(100vh_-_100px)] rounded-2xl">
+      <div className="bg-lightSecondary dark:bg-slate-800 dark:text-white p-2 h-[calc(100vh_-_100px)] rounded-2xl">
         <h2>Completed</h2>
 
-        <EntryList status={Status.FINISHED} />
+        <EntryList status={Status.FINISHED} entries={entries} />
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ export const Navbar: FC = () => {
   const [isDark, setIsDark] = useDarkMode();
   const { toggleSideMenu } = useContext(UIContext);
   return (
-    <div className="sticky text-white bg-[#DD7373] dark:bg-[#4a148c]">
+    <div className="sticky text-white bg-lightSecondary dark:bg-[#4a148c]">
       <div className="flex items-center px-6 py-3">
         <div className="cursor-pointer">
           <HiOutlineMenuAlt1 size={24} onClick={toggleSideMenu} />

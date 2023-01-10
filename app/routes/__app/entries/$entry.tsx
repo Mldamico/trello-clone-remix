@@ -56,7 +56,7 @@ const EntryPage = () => {
   };
   return (
     <>
-      <div className="flex justify-center mt-4  text-white bg-[#DD7373] dark:bg-[#4a148c] w-full mx-auto md:w-[70%] lg:w-[50%] rounded-lg">
+      <div className="flex justify-center mt-4  text-white bg-lightSecondary dark:bg-[#4a148c] w-full mx-auto md:w-[70%] lg:w-[50%] rounded-lg">
         <div className="w-full m-3">
           <Toaster position="top-center" reverseOrder={false} />
           <div className="flex flex-col justify-start">
@@ -92,7 +92,7 @@ const EntryPage = () => {
 
           <div className="mt-4">
             <button
-              className="flex items-center justify-center w-full py-2 space-x-2 font-bold rounded bg-slate-600 hover:bg-slate-300 hover:text-black disabled:bg-gray-400 disabled:text-gray-600"
+              className="flex items-center justify-center w-full py-2 space-x-2 font-bold rounded bg-lightPrimary dark:bg-slate-600 hover:bg-slate-300 hover:text-black disabled:bg-gray-400 disabled:text-gray-600"
               onClick={onSave}
               disabled={inputValue.length === 0}
             >
